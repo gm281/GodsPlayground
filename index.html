@@ -1,5 +1,20 @@
 <html>
 <script type="text/javascript">
+
+function longpoll() {
+  	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+  	{
+  		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    	{
+    		document.getElementById("p1").innerHTML=xmlhttp.responseText;
+			longpoll();
+    	}
+  	}
+	xmlhttp.open("GET","longpoll", true);
+	xmlhttp.send();
+}
+
 function script() {
 	//alert("JS test");
 	//document.getElementById("p1").innerHTML = "New text!";
@@ -25,6 +40,7 @@ function script() {
 	xmlhttp2.open("GET","hello2", true);
 	xmlhttp2.send();
 
+	longpoll();
 }
 
 </script>

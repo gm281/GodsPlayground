@@ -13,6 +13,8 @@ public class GodsPlaygroundServer {
 
     static final String COOKIE_IDENTIFIER = "user-identifier";
 
+    static int x = 10;
+
     public static void main(String[] args) throws Exception {
         System.out.println("Hello world");
         /*
@@ -24,6 +26,14 @@ public class GodsPlaygroundServer {
             }
         });
         */
+        get("/longpoll", (req, res) -> {
+            System.out.println("==> long poll start. " + req.cookie(COOKIE_IDENTIFIER));
+            Thread.sleep(2000);
+            System.out.println("==> long poll end. " + req.cookie(COOKIE_IDENTIFIER));
+            x++;
+            return "" + x;
+        });
+
         get("/hello", (req, res) -> {
             System.out.println("==> Hello world. " + req.cookie(COOKIE_IDENTIFIER));
             return "Hello World";
