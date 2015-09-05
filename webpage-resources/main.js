@@ -1,21 +1,4 @@
-<html>
-<script type="text/javascript">
-
-function longpoll() {
-  	var xmlhttp=new XMLHttpRequest();
-	xmlhttp.onreadystatechange=function()
-  	{
-  		if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    	{
-    		document.getElementById("p1").innerHTML=xmlhttp.responseText;
-			longpoll();
-    	}
-  	}
-	xmlhttp.open("GET","longpoll", true);
-	xmlhttp.send();
-}
-
-function script() {
+function main() {
 	//alert("JS test");
 	//document.getElementById("p1").innerHTML = "New text!";
   	var xmlhttp=new XMLHttpRequest();
@@ -42,9 +25,3 @@ function script() {
 
 	longpoll();
 }
-
-</script>
-<body onload="script();">
-<p id="p1">Hello World!</p>
-</body>
-</html>
