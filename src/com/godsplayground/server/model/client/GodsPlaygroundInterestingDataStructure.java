@@ -1,4 +1,4 @@
-package com.godsplayground;
+package com.godsplayground.server.model.client;
 
 public class GodsPlaygroundInterestingDataStructure {
 

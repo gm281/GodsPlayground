@@ -1,27 +1,20 @@
+function notificationHandler(obj) {
+	console.log("Got notification of type: " + obj.type);
+	var value = obj[obj.type];
+	if (obj.type === "Heartbeat") {
+		// Long and ignore, this is just to confirm we are still here
+		console.log("Got heartbeat");
+	} else
+	if (obj.type === "GodsPlaygroundInterestingDataStructure") {
+		interesting = value;
+		document.getElementById("p2").innerHTML= "The cycle counter: " + interesting.someLong + ", other bits: " + interesting.someClass.someInt + ", " + interesting.someArray[1];
+	}
+}
+
 function main() {
-	//alert("JS test");
-	//document.getElementById("p1").innerHTML = "New text!";
-  	var xmlhttp=new XMLHttpRequest();
-	xmlhttp.onreadystatechange=function()
-  	{
-  		if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    	{
-    		document.getElementById("p1").innerHTML=xmlhttp.responseText;
-    	}
-  	}
-	xmlhttp.open("GET","hello", true);
-	xmlhttp.send();
-
-  	var xmlhttp2=new XMLHttpRequest();
-	xmlhttp2.onreadystatechange=function()
-  	{
-  		if (xmlhttp2.readyState==4 && xmlhttp2.status==200)
-    	{
-    		document.getElementById("p1").innerHTML=xmlhttp2.responseText;
-    	}
-  	}
-	xmlhttp2.open("GET","hello2", true);
-	xmlhttp2.send();
-
-	longpoll();
+	var player = new Player("swinka", "latajaca");
+	post("login", player, function() {
+		console.log("Login completed");
+		longpoll(notificationHandler);
+	});
 }
