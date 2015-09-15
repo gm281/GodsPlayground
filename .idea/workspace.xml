@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="355b0627-ca5d-4562-807d-51dcc794359b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/godsplayground/controller/Controller.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/godsplayground/server/model/client/Heartbeat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/godsplayground/server/model/client/Login.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/godsplayground/server/model/client/Notification.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/godsplayground/Player.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/godsplayground/server/model/server/Player.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/godsplayground/PlayerCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/godsplayground/Runner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/ant_ant_apache_log4j_1_6_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/log4j_log4j_1_2_17.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/godsplayground/GodsPlaygroundInterestingDataStructure.java" afterPath="$PROJECT_DIR$/src/com/godsplayground/server/model/client/GodsPlaygroundInterestingDataStructure.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/godsplayground/GodsPlaygroundServer.java" afterPath="$PROJECT_DIR$/src/com/godsplayground/server/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GodsPlayground.iml" afterPath="$PROJECT_DIR$/GodsPlayground.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage-resources/react-draggable" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitmodules" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage-resources/index.html" afterPath="$PROJECT_DIR$/webpage-resources/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage-resources/longpoll.js" afterPath="$PROJECT_DIR$/webpage-resources/longpoll.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage-resources/main.js" afterPath="$PROJECT_DIR$/webpage-resources/main.js" />
     </list>
     <ignored path="GodsPlayground.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,8 +70,8 @@
           <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/godsplayground/server/model/server/Player.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.94393593" vertical-offset="120" max-vertical-offset="1155">
-                  <caret line="63" column="74" selection-start-line="63" selection-start-column="74" selection-end-line="63" selection-end-column="74" />
+                <state vertical-scroll-proportion="0.45330295" vertical-offset="277" max-vertical-offset="1155">
+                  <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#912#913#0" expanded="true" />
@@ -92,7 +79,6 @@
                     <element signature="e#1218#1219#0" expanded="true" />
                     <element signature="e#1249#1250#0" expanded="true" />
                     <element signature="e#1284#1285#0" expanded="true" />
-                    <element signature="e#1315#1316#0" expanded="true" />
                     <element signature="e#1371#1372#0" expanded="true" />
                     <element signature="e#1419#1420#0" expanded="true" />
                     <element signature="e#1461#1462#0" expanded="true" />
@@ -177,8 +163,8 @@
           <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/godsplayground/controller/Controller.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.56636155" vertical-offset="0" max-vertical-offset="990">
-                  <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+                <state vertical-scroll-proportion="0.6492027" vertical-offset="0" max-vertical-offset="990">
+                  <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#557#558#0" expanded="true" />
@@ -228,7 +214,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="2560" />
-    <option name="height" value="1413" />
+    <option name="height" value="1417" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -809,7 +795,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="2560" height="1413" extended-state="6" />
+    <frame x="0" y="23" width="2560" height="1417" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -822,7 +808,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32886904" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32789317" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -888,7 +874,6 @@
             <element signature="e#1218#1219#0" expanded="true" />
             <element signature="e#1249#1250#0" expanded="true" />
             <element signature="e#1284#1285#0" expanded="true" />
-            <element signature="e#1315#1316#0" expanded="true" />
             <element signature="e#1371#1372#0" expanded="true" />
             <element signature="e#1419#1420#0" expanded="true" />
             <element signature="e#1461#1462#0" expanded="true" />
@@ -1308,18 +1293,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/godsplayground/controller/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56636155" vertical-offset="0" max-vertical-offset="990">
-          <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#557#558#0" expanded="true" />
-            <element signature="e#608#609#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/godsplayground/server/model/client/Notification.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
@@ -1342,10 +1315,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/godsplayground/controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6492027" vertical-offset="0" max-vertical-offset="990">
+          <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#557#558#0" expanded="true" />
+            <element signature="e#608#609#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/godsplayground/server/model/server/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.94393593" vertical-offset="120" max-vertical-offset="1155">
-          <caret line="63" column="74" selection-start-line="63" selection-start-column="74" selection-end-line="63" selection-end-column="74" />
+        <state vertical-scroll-proportion="0.45330295" vertical-offset="277" max-vertical-offset="1155">
+          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#912#913#0" expanded="true" />
@@ -1353,7 +1338,6 @@
             <element signature="e#1218#1219#0" expanded="true" />
             <element signature="e#1249#1250#0" expanded="true" />
             <element signature="e#1284#1285#0" expanded="true" />
-            <element signature="e#1315#1316#0" expanded="true" />
             <element signature="e#1371#1372#0" expanded="true" />
             <element signature="e#1419#1420#0" expanded="true" />
             <element signature="e#1461#1462#0" expanded="true" />
