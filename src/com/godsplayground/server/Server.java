@@ -4,30 +4,43 @@ import com.godsplayground.PlayerCreator;
 import com.godsplayground.server.model.client.Heartbeat;
 import com.godsplayground.server.model.client.Login;
 import com.godsplayground.server.model.client.Notification;
+import com.godsplayground.server.model.server.Config;
 import com.godsplayground.server.model.server.Player;
+import com.godsplayground.server.model.server.PlayerLogin;
 import com.google.gson.Gson;
 
+import java.io.*;
 import java.util.*;
 
 import static spark.Spark.*;
 
 public class Server implements PlayerCreator {
 
+    static final String CONFIG_FILE = "server-resources/server-config.json";
     static final String COOKIE_IDENTIFIER = "user-identifier";
     static final long HEARTBEAT_PERIOD = 1000;
 
 
     private final Gson gson;
-    private volatile Delegate playerDelegate;
-    private final Map<Player.Identifier, Player> players;
     private Thread expiryThread;
+
+    private volatile Delegate playerDelegate;
+
+    private Config config;
+    private final Map<Player.Identifier, Player> players;
 
     public Server() {
         gson = new Gson();
         players = new HashMap<>();
     }
 
-    private long handleLogin(final Login login) {
+    public void readConfig() throws FileNotFoundException {
+        Gson gson = new Gson();
+        final InputStream in = this.getClass().getClassLoader().getResourceAsStream(CONFIG_FILE);
+        this.config = gson.fromJson(new InputStreamReader(in), Config.class);
+    }
+
+    private Player handleLogin(final Login login) {
         final Player player = new Player(login.getUsername(), login.getPassword());
         final Delegate delegate = playerDelegate;
         if (delegate != null) {
@@ -35,7 +48,7 @@ public class Server implements PlayerCreator {
         }
         players.put(player.getId(), player);
 
-        return player.getId().getId();
+        return player;
     }
 
     private synchronized Player getPlayer(final long id) {
@@ -72,16 +85,20 @@ public class Server implements PlayerCreator {
         expiryThread.start();
     }
 
-    public void initialise() {
+    public void initialise() throws FileNotFoundException {
+        readConfig();
         initialisePlayerExpiryCheck();
-        externalStaticFileLocation("/Users/gmilos/Dropbox/Unison/Documents/Projects/GodsPlayground/webpage-resources");
+        staticFileLocation("webpage-resources");
 
         post("/login", (req, res) -> {
             final Login login = gson.fromJson(req.body(), Login.class);
-            long identifier = handleLogin(login);
-            res.cookie(COOKIE_IDENTIFIER, Long.toString(identifier));
-            return "";
-        });
+            final PlayerLogin.AuthResult authResult = config.authPlayerLogin(login);
+            if (authResult == PlayerLogin.AuthResult.OK) {
+                final Player player = handleLogin(login);
+                res.cookie(COOKIE_IDENTIFIER, Long.toString(player.getId().getId()));
+            }
+            return authResult;
+        }, gson::toJson);
 
 
         get("/longpoll", (req, res) -> {

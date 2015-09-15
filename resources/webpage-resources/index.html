@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Gods' Playground</title>
+  <style type="text/css">
+    body {
+      color: #222;
+      font-family: "Helvetica Neue", sans-serif;
+      font-weight: 200;
+      margin-top:0px;
+      margin-bottom:0px;
+      margin-left:0px;
+      margin-right:0px;
+    }
+    .whole {
+      width:100vw;
+      height:100vh;
+    }
+    .menu {
+      width:300px;
+      height:100%;
+      background:#2572EB;
+      float:right;
+    }
+    .map {
+      overflow:hidden;
+      height:100%;
+      background:blue;
+    }
+    .avatar {
+      position: absolute;
+      width: 100px;
+      height: 150px;
+    }
+    .avatar img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .react-draggable {
+      cursor: move;
+      display: inline-block
+    }
+    .menu-item {
+      background-color:#44c767;
+      -moz-border-radius:2px;
+      -webkit-border-radius:2px;
+      border-radius:2px;
+      border:1px solid #18ab29;
+      display:inline-block;
+      cursor:pointer;
+      color:#ffffff;
+      font-family:Arial;
+      font-size:17px;
+      text-align: center;
+      padding:10px 0px;
+      text-decoration:none;
+      text-shadow:0px 1px 0px #2f6627;
+      width: 200px;
+      margin-top: 10px;
+      margin-left: 50px;
+    }
+    .menu-item:hover {
+      background-color:#5cbf2a;
+    }
+    .menu-item:active {
+      position:relative;
+      top:1px;
+    }
+
+    ..cursor {
+      cursor: move;
+    }
+    .no-cursor {
+      cursor: auto;
+    }
+    .cursor-y {
+      cursor: ns-resize;
+    }
+    .cursor-x {
+      cursor: ew-resize;
+    }
+  </style>
+
+  <script src="react/react-with-addons-0.13.2.js"></script>
+  <script src="react/JSXTransformer-0.13.2.js"></script>
+  <script src="react-draggable/dist/react-draggable.js"></script>
+  <script src="main.js"></script>
+  <script src="comms.js"></script>
+  <script src="longpoll.js"></script>
+  <script src="model.js"></script>
+  <script type="text/jsx" src="playview.js"></script>
+</head>
+
+<body onload="main();"> </body>
+</html>
+
