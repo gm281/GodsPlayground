@@ -11,6 +11,6 @@ public class Runner {
         final Controller controller = new Controller();
         final Server server = new Server();
         server.initialise();
-        server.registerPlayerDelegate(controller);
+        server.registerDelegate(controller);
     }
 }

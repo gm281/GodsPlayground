@@ -25,32 +25,36 @@ var App = React.createClass({
 
   handleAvatarClick: function() {
     console.log("Click");
-    var avatarLeft = this.state.avatarLeft;
-    if (avatarLeft == undefined) {
-       avatarLeft = 117;
-    } else {
-       avatarLeft += 100;
-    }
-    console.log(avatarLeft);
-    this.setState({avatarLeft: avatarLeft});
   },
 
   render: function () {
     var drags = {onStart: this.onStart, onStop: this.onStop};
     var windowWidth = window.innerWidth;
-    var avatarLeft = this.state.avatarLeft;
+	var gameplay = this.state.gameplay;
+	var mapImage = "";
+	if (gameplay != undefined) {
+		mapImage = gameplay.mapImage;
+	}
+	var avatars = this.state.avatars;
+	if (avatars == undefined) {
+		avatars = [];
+	}
+
     return (
       <div className="whole">
        <Menu ref="right" alignment="right">
-          <MenuItem hash="first-page">First Page</MenuItem>
-          <MenuItem hash="second-page">Second Page</MenuItem>
-          <MenuItem hash="third-page">Third Page</MenuItem>
+          <MenuItem hash="Add">Add avatar</MenuItem>
+          <MenuItem hash="Del">Remove avatar</MenuItem>
       </Menu>
-       <div className="map" onClick={console.log("hello map")}>
+       <div className="map">
          <Draggable zIndex={100} {...drags} bounds="parent-outside" onClick={this.onClick}>
   		 <div>
-           	<div><img draggable="false" src="images/earth.png" /></div>
-  		 	<div className="avatar" style={{ left: avatarLeft+"px", top: "300px" }} onClick={this.handleAvatarClick}><img draggable="false" src="images/balloon.png" /></div>
+           	<div><img draggable="false" src={mapImage} /></div>
+			{
+				avatars.map(function(avatar, i) {
+					return <div className="avatar" style={{ left: avatar["xPosition"]+"px", top: avatar["yPosition"]+"px", zIndex: avatar["id"]}} onClick={this.handleAvatarClick}><img draggable="false" src="images/balloon.png" /></div>;
+    			})
+			}
   		 </div>
          </Draggable>
        </div>
@@ -85,7 +89,12 @@ var Menu = React.createClass({
 
 var MenuItem = React.createClass({
     navigate: function(hash) {
-        window.location.hash = hash;
+		if (hash == "Add") {
+			op = true;
+		} else {
+			op = false;
+		}
+		modAvatars(op);
     },
 
     render: function() {

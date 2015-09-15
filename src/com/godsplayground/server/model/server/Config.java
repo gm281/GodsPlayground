@@ -1,6 +1,6 @@
 package com.godsplayground.server.model.server;
 
-import com.godsplayground.server.model.client.Login;
+import com.godsplayground.server.model.client.LoginRequest;
 
 public class Config {
     private PlayerLogin[] players;
@@ -9,7 +9,7 @@ public class Config {
         return players;
     }
 
-    public PlayerLogin.AuthResult authPlayerLogin(final Login login) {
+    public PlayerLogin.AuthResult authPlayerLogin(final LoginRequest login) {
         for (final PlayerLogin candidate : players) {
             if (candidate.getUsername().equals(login.getUsername())) {
                 if (candidate.getPassword().equals(login.getPassword())) {

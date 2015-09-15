@@ -7,7 +7,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class Player implements com.godsplayground.Player {
+public class PlayerModel implements com.godsplayground.Player {
 
     private final String username;
     private final String password;
@@ -15,12 +15,12 @@ public class Player implements com.godsplayground.Player {
     private final BlockingQueue<Object> notificationQueue;
     private final AtomicLong lastSeenTimestamp;
 
-    public Player(final String username, final String password) {
+    public PlayerModel(final String username, final String password) {
         this.username = username;
         this.password = password;
         this.id = new Identifier(username.hashCode());
         this.notificationQueue = new ArrayBlockingQueue<>(10);
-        this.lastSeenTimestamp = new AtomicLong();
+        this.lastSeenTimestamp = new AtomicLong(System.currentTimeMillis());
     }
 
     @Override

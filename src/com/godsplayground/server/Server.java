@@ -1,20 +1,24 @@
 package com.godsplayground.server;
 
-import com.godsplayground.PlayerCreator;
-import com.godsplayground.server.model.client.Heartbeat;
-import com.godsplayground.server.model.client.Login;
-import com.godsplayground.server.model.client.Notification;
+import com.godsplayground.Avatar;
+import com.godsplayground.Gameplay;
+import com.godsplayground.UIController;
+import com.godsplayground.server.model.client.*;
 import com.godsplayground.server.model.server.Config;
-import com.godsplayground.server.model.server.Player;
+import com.godsplayground.server.model.server.GameplayModel;
+import com.godsplayground.server.model.server.PlayerModel;
 import com.godsplayground.server.model.server.PlayerLogin;
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.*;
 
 import static spark.Spark.*;
 
-public class Server implements PlayerCreator {
+public class Server implements UIController {
+
+    private static final Logger logger = Logger.getLogger(Server.class);
 
     static final String CONFIG_FILE = "server-resources/server-config.json";
     static final String COOKIE_IDENTIFIER = "user-identifier";
@@ -24,14 +28,16 @@ public class Server implements PlayerCreator {
     private final Gson gson;
     private Thread expiryThread;
 
-    private volatile Delegate playerDelegate;
+    private volatile Delegate delegate;
 
     private Config config;
-    private final Map<Player.Identifier, Player> players;
+    private final Map<PlayerModel.Identifier, PlayerModel> players;
+    private final Map<Integer, GameplayModel> gameplays;
 
     public Server() {
         gson = new Gson();
         players = new HashMap<>();
+        gameplays = new HashMap<>();
     }
 
     public void readConfig() throws FileNotFoundException {
@@ -40,9 +46,9 @@ public class Server implements PlayerCreator {
         this.config = gson.fromJson(new InputStreamReader(in), Config.class);
     }
 
-    private Player handleLogin(final Login login) {
-        final Player player = new Player(login.getUsername(), login.getPassword());
-        final Delegate delegate = playerDelegate;
+    private PlayerModel handleLogin(final LoginRequest login) {
+        final PlayerModel player = new PlayerModel(login.getUsername(), login.getPassword());
+        final Delegate delegate = this.delegate;
         if (delegate != null) {
             delegate.newPlayer(player);
         }
@@ -51,16 +57,16 @@ public class Server implements PlayerCreator {
         return player;
     }
 
-    private synchronized Player getPlayer(final long id) {
-        return players.get(new Player.Identifier(id));
+    private synchronized PlayerModel getPlayer(final long id) {
+        return players.get(new PlayerModel.Identifier(id));
     }
 
     private synchronized void tryExpire() {
         final long currentTime = System.currentTimeMillis();
-        for (final Player player : players.values()) {
+        for (final PlayerModel player : players.values()) {
             if (currentTime > player.getLastSeenTimestamp() + HEARTBEAT_PERIOD * 2) {
                 players.remove(player.getId());
-                final Delegate delegate = playerDelegate;
+                final Delegate delegate = this.delegate;
                 if (delegate != null) {
                     delegate.playerWentAway(player);
                 }
@@ -91,18 +97,45 @@ public class Server implements PlayerCreator {
         staticFileLocation("webpage-resources");
 
         post("/login", (req, res) -> {
-            final Login login = gson.fromJson(req.body(), Login.class);
+            final LoginRequest login = gson.fromJson(req.body(), LoginRequest.class);
             final PlayerLogin.AuthResult authResult = config.authPlayerLogin(login);
             if (authResult == PlayerLogin.AuthResult.OK) {
-                final Player player = handleLogin(login);
+                final PlayerModel player = handleLogin(login);
                 res.cookie(COOKIE_IDENTIFIER, Long.toString(player.getId().getId()));
             }
             return authResult;
         }, gson::toJson);
 
+        post("/gameplay", (req, res) -> {
+            final PlayerModel player = getPlayer(Long.parseLong(req.cookie(COOKIE_IDENTIFIER)));
+            final GameplayRequest gameplayReq = gson.fromJson(req.body(), GameplayRequest.class);
+            logger.info("Gameplay request from: " + player + ", for: " + gameplayReq);
+            final Gameplay gameplay = delegate.getGameplay(player, gameplayReq.getType());
+            final GameplayModel gameplayModel = new GameplayModel(gameplay);
+            gameplays.put(gameplayModel.getId(), gameplayModel);
+            return gameplayModel.toResponse();
+        }, gson::toJson);
+
+        post("/avatars", (req, res) -> {
+            final PlayerModel player = getPlayer(Long.parseLong(req.cookie(COOKIE_IDENTIFIER)));
+            final AvatarsRequest avatarsReq = gson.fromJson(req.body(), AvatarsRequest.class);
+            final GameplayModel gameplayModel = gameplays.get(avatarsReq.getGameplayId());
+            logger.info("Avatars request from: " + player);
+            final Set<Avatar> avatars = delegate.getAvatars(player, gameplayModel);
+            return new AvatarsResponse(avatars);
+        }, gson::toJson);
+
+        post("/modifyAvatars", (req, res) -> {
+            final PlayerModel player = getPlayer(Long.parseLong(req.cookie(COOKIE_IDENTIFIER)));
+            final ModifyAvatarsRequest avatarsReq = gson.fromJson(req.body(), ModifyAvatarsRequest.class);
+            final GameplayModel gameplayModel = gameplays.get(avatarsReq.getGameplayId());
+            logger.info("Modify avatars request from: " + player);
+            delegate.modifyAvatars(player, gameplayModel, avatarsReq.isAddOrRemove());
+            return "";
+        });
 
         get("/longpoll", (req, res) -> {
-            final Player player = getPlayer(Long.parseLong(req.cookie(COOKIE_IDENTIFIER)));
+            final PlayerModel player = getPlayer(Long.parseLong(req.cookie(COOKIE_IDENTIFIER)));
             player.setLastSeenTimestamp(System.currentTimeMillis());
             System.out.println("long poll for player: " + player);
             Notification notification = player.getNotification(HEARTBEAT_PERIOD);
@@ -114,7 +147,7 @@ public class Server implements PlayerCreator {
     }
 
     @Override
-    public void registerPlayerDelegate(Delegate delegate) {
-        playerDelegate = delegate;
+    public void registerDelegate(Delegate delegate) {
+        this.delegate = delegate;
     }
 }

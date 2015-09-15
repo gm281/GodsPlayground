@@ -1,10 +1,10 @@
 package com.godsplayground.server.model.client;
 
-public class Login {
+public class LoginRequest {
     private String username;
     private String password;
 
-    public Login() {
+    public LoginRequest() {
     }
 
     public String getUsername() {
