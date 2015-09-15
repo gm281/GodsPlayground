@@ -1,0 +1,3 @@
+[submodule "webpage-resources/react-draggable"]
+	path = webpage-resources/react-draggable
+	url = git@github.com:gm281/react-draggable.git
